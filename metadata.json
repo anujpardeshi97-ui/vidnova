@@ -1,0 +1,6 @@
+{
+  "name": "NexStream Video & Live Platform",
+  "description": "Advanced YouTube-style video streaming platform with custom HTML5 video player, multilingual commenting with auto-moderation and instant translation, subscription management with Razorpay test payments, tiered download manager, IST time-based auto-theming, 2FA OTP security verification, and real-time video calling suite.",
+  "requestFramePermissions": ["camera", "microphone", "display-capture"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

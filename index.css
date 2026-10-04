@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+/* Custom range slider for video player and volume */
+input[type="range"] {
+  accent-color: #ef4444;
+}
+
+.video-scrubber::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ef4444;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+  transition: transform 0.1s ease;
+}
+
+.video-scrubber:hover::-webkit-slider-thumb {
+  transform: scale(1.3);
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
+
+/* -------------------------------------------------------------------------
+ * NexStream additions
+ * ---------------------------------------------------------------------- */
+
+/* Tailwind v4 dark mode is class-driven: we toggle `.dark` on <html> so the
+   theme survives reloads and matches the per-profile preference. */
+html.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* The custom player hides its own controls, so keep the native ones off. */
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+/* Utility: clamp text to N lines without a plugin. */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile/tablet playback and interaction tuning. Keep the browser's video
+   compositor in charge of the actual frames; avoid expensive layout effects. */
+video {
+  max-width: 100%;
+  touch-action: manipulation;
+}
+
+@media (max-width: 1023px) {
+  .video-scrubber::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+  }
+
+  button, input, select, textarea {
+    touch-action: manipulation;
+  }
+}
+
+@media (max-width: 767px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  video {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
